@@ -1,0 +1,104 @@
+// Group_no - 62 :
+// Pranil Dey (20CS30038)
+// Yuti Patel (20CS10043)
+
+DATA STRUCTURES :
+
+    • queue: The program has a data structure called queue to store messages to be sent or received,
+    and implements several socket-related functions like my_socket(), my_listen(), my_accept(),
+    my_bind(), my_connect(), my_send(), my_recv(), and my_close().The data structure uses three
+    functions enqueue, dequeue and init queue to add delete and initialize the queue attributes.
+    
+    • message table: A structure used for storing messages that are sent or received. It consists of
+    the following fields:
+    – head: Index of the first message in the table
+    – tail: Index of the last message in the table
+    – message: An array of characters used for storing messages
+
+FUNCTIONS :
+
+    • my_socket: The my_socket() function creates a socket with the given domain, type, and
+    protocol, and initializes two global variables Send message and Receive message, which are
+    two instances of the queue structure. It then creates two threads, one for sending messages
+    (Send thread()) and one for receiving messages (Receive thread()), and returns the socket file
+    descriptor.
+    
+    • my_listen: The my_listen() function is a wrapper around the listen() system call and sets the
+    maximum length for the queue of pending connections for the given socket.
+
+    • my_accept:The my_accept() function is a wrapper around the accept() system call and blocks
+    until a client connects to the given socket, returning a new socket file descriptor for the
+    connection.
+
+    • my_bind: The my_bind() function is a wrapper around the bind() system call and associates
+    a socket with a specific address and port number.
+
+    • my_connect: The my_connect() function is a wrapper around the connect() system call and
+    initiates a connection to a remote socket at the specified address and port number.
+
+    • my_send: The my_send() function enqueues a message to be sent to the remote socket. If the
+    queue is full, it blocks until there is space available. It then sends the message as a stream of
+    bytes, prepended by a 4-byte length field that indicates the total length of the message.
+
+    • my_recv: The my_recv() function blocks until a message is received from the remote socket.
+    It reads the 4-byte length field first and then reads the remaining bytes of the message. It
+    then returns the length of the message and copies the message into the buffer provided.
+
+    • my_close: The my_close() function waits for 10 seconds before closing the socket and freeing
+    the memory allocated for the message queues. It also cancels the two threads created earlier.
+
+    • Receive thread(): A function used for receiving messages from the server. It takes a void
+    pointer as an argument and returns a void pointer.
+
+    • Send thread(): A function used for sending messages to the server. It takes a void pointer as
+    an argument and returns a void pointer.
+
+    • my_socket(): A function that creates a new socket. It takes three arguments: domain, type,
+    and protocol, and returns an integer file descriptor for the new socket.
+
+    • my_bind(): A function that binds a socket to a specific address. It takes three arguments:
+    sockfd, addr, and addrlen, and returns an integer value indicating the success or failure of the
+    operation.
+
+    • my_listen(): A function that sets a socket to listen for incoming connections. It takes two
+    arguments: sockfd and backlog, and returns an integer value indicating the success or failure
+    of the operation.
+
+    • my_accept(): A function that accepts incoming connections on a socket. It takes three arguments:
+    sockfd, addr, and addrlen, and returns an integer file descriptor for the new socket
+    created for the incoming connection.
+
+    • my_connect(): A function that establishes a connection to a server. It takes three arguments:
+    sockfd, addr, and addrlen, and returns an integer value indicating the success or failure of the
+    operation.
+
+    • my_send(): A function that sends data over a socket. It takes four arguments: sockfd, buf,
+    len, and flags, and returns the number of bytes sent.
+
+    • my_recv(): A function that receives data over a socket. It takes four arguments: sockfd, buf,
+    len, and flags, and returns the number of bytes received.
+
+    • my_close(): A function that closes a socket. It takes one argument: sockfd, and returns
+    nothing.
+
+What happens when a send/recv function is called?
+
+    – my_send call: When a my_send call is made, the following sequence of functions are
+    called:
+
+        ∗ The my_send function is called, which takes four arguments: sockfd, buf, len, and
+        flags.
+        ∗ The send system call is called with the same arguments as passed to my_send function.
+        This system call sends the data in buf of length len to the socket sockfd.
+        ∗ If the send system call fails, the my_send function returns -1, indicating that an error
+        occurred. Otherwise, it returns the number of bytes sent.
+
+    – my_recv call: When a my_recv call is made, the following sequence of functions are called:
+
+        ∗ The my_recv function is called, which takes four arguments: sockfd, buf, len, and
+        flags.
+        ∗ The recv system call is called with the same arguments as passed to my_recv function.
+        This system call receives data from the socket sockfd and stores it in the buffer buf
+        of size len.
+        ∗ If the recv system call fails, the my_recv function returns -1, indicating that an error
+        occurred. Otherwise, it returns the number of bytes received.
